@@ -1,8 +1,12 @@
 import "./navbar.css";
 import icon from '../assets/react.svg';
 import {Link} from "react-router-dom";
+import {useContext} from "react";
+import {AuthContext} from "../lib/auth.js";
 
 export default function Navbar() {
+    const {auth} = useContext(AuthContext);
+
     return <div className="navbar">
         <Link className="navbar__icon" to="/">
             <img src={icon} alt="icon"/>
@@ -14,7 +18,11 @@ export default function Navbar() {
             <Link to="/" className="cb-link">Home</Link>
             <Link to="/edit" className="cb-link">Edit</Link>
             <Link to="/view" className="cb-link">View</Link>
-            <Link to="/login" className="cb-link">Log In</Link>
+            {
+                auth.authenticated
+                    ? <Link to="/logout" className="cb-link">Log Out</Link>
+                    : <Link to="/login" className="cb-link">Log In</Link>
+            }
         </div>
     </div>
 }

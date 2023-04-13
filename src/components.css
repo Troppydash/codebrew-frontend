@@ -27,3 +27,9 @@
     position: relative;
     top: 0.1rem;
 }
+
+
+.cb-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+}

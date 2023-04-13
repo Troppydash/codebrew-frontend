@@ -1,45 +1,15 @@
 import Navbar from "./components/navbar.jsx";
-import {createBrowserRouter, Outlet, Route, RouterProvider, Routes} from "react-router-dom";
+import {BrowserRouter, Route,  Routes} from "react-router-dom";
 import About from "./pages/about.jsx";
 import Home from "./pages/home.jsx";
 
 import './app.css';
 import './components.css';
 import Login from "./pages/login.jsx";
-import {AuthContext, authLogin} from "./lib/auth.js";
+import {AuthContext} from "./lib/auth.js";
 import {useEffect, useState} from "react";
 import Error from "./pages/404.jsx";
-
-const router = createBrowserRouter([
-    {
-        errorElement: <Error/>,
-        element: <NavbarLayout />,
-        children: [
-            {
-                path: '/',
-                element: <Home />
-            },
-            {
-                path: '/about',
-                element: <About />
-            },
-            {
-                path: '/login',
-                element: <Login/>
-            }
-        ]
-    },
-
-]);
-
-
-// layout file for all pages using the navbar
-function NavbarLayout() {
-    return <>
-        <Navbar />
-        <Outlet />
-    </>
-}
+import Logout from "./pages/logout.jsx";
 
 
 export default function App() {
@@ -51,14 +21,36 @@ export default function App() {
 
     // try to login on render
     useEffect(() => {
-        // const jwt = await authLogin()
+        // check if authenticated
+        const jwt = localStorage.getItem('auth_jwt');
+        const username = localStorage.getItem('auth_username');
+        if (jwt == null || username == null) {
+            return;
+        }
+
+        setAuth({
+            username,
+            authenticated: true
+        });
     }, []);
 
 
     return (
         <div className="main-page">
             <AuthContext.Provider value={{auth, setAuth}}>
-            <RouterProvider router={router} />
+                <BrowserRouter>
+                    <Navbar/>
+                    <Routes>
+                        <Route path="*" element={<Error/>}/>
+                        <Route path="/" element={<Home/>}/>
+                        {
+                            auth.authenticated ? <Route path="/logout" element={<Logout/>}/>
+                                : <Route path="/login" element={<Login/>}/>
+                        }
+
+                        <Route path="/about" element={<About/>}/>
+                    </Routes>
+                </BrowserRouter>
             </AuthContext.Provider>
         </div>
     );
