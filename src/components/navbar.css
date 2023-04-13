@@ -1,0 +1,41 @@
+.navbar {
+    width: 100vw;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    border: 1px solid black;
+    padding: 1rem;
+}
+
+.navbar__title {
+    margin: 0 1rem;
+}
+
+.navbar__spacer {
+    flex-grow: 1;
+}
+
+.navbar__icon {
+}
+
+.navbar__icon img {
+    width: 2rem;
+    height: auto;
+    display: block;
+}
+
+
+.navbar__menu {
+
+}
+
+.navbar__action {
+
+}
+
+.navbar__action a+a {
+    margin-left: 1.5rem;
+}
