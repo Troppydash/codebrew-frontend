@@ -8,17 +8,16 @@ export default function Logout() {
     const [shouldRedirect, setShouldRedirect] = useState(false);
 
     useEffect(() => {
-        setShouldRedirect(true);
-
         setTimeout(() => {
-
             localStorage.removeItem('auth_jwt');
             localStorage.removeItem('auth_username');
             setAuth({
                 username: 'unknown',
                 authenticated: false
             })
-        }, 500);
+        }, 100);
+
+        setShouldRedirect(true);
     }, []);
 
 

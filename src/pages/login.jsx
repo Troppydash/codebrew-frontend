@@ -23,15 +23,16 @@ export default function Login() {
 
         try {
             const jwt = await authLogin({username, password});
-            // redirect to home
-            setShouldRedirect(true);
 
             // save it
             setTimeout(() => {
                 localStorage.setItem('auth_jwt', jwt);
                 localStorage.setItem('auth_username', username);
                 setAuth({username, authenticated: true});
-            }, 500);
+            }, 100);
+
+            // redirect to home
+            setShouldRedirect(true);
         } catch (err) {
             setError(err);
         } finally {
@@ -66,7 +67,7 @@ export default function Login() {
                             </div>
                         }
                         <div>
-                            <button type="submit" disabled={isFetching} className="cb-button">Submit</button>
+                            <button type="submit" disabled={isFetching} className="cb-button cb-button--outline">LOGIN</button>
                         </div>
                     </form>
                 </div>
@@ -75,10 +76,10 @@ export default function Login() {
                 <div className="login-shift">
                     <h2 className="login-right-title cb-title">Don't have an account?</h2>
                     <p className="login-right-text">
-                        Make an account now
+                        Make an account
                     </p>
 
-                    <Link to="/register" className="login-signup cb-button cb-link">Signup</Link>
+                    <Link to="/register" className="login-signup cb-button cb-link">SIGNUP</Link>
                 </div>
             </div>
         </div>

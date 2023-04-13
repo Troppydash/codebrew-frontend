@@ -12,7 +12,7 @@ export default function Navbar() {
             Frugalicious
         </Link>
 
-        <div className="navbar__action">
+        <div className="navbar__action navbar__links">
             <Link to="/about" className="cb-link navbar__action--link">About</Link>
             <Link to="/calculator" className="cb-link navbar__action--link">Cost Calculator</Link>
             <Link to="/recipes" className="cb-link navbar__action--link">Recipes</Link>
@@ -23,12 +23,10 @@ export default function Navbar() {
             {
                 auth.authenticated
                     ? <Link to="/logout" className="cb-link cb-button">Log Out</Link>
-                    : (
-                        <>
-                            <Link to="/login" className="cb-link cb-button">LOGIN</Link>
-                            <Link to="/register" className="cb-link cb-button cb-button--outline">SIGN UP</Link>
-                        </>
-                    )
+                    : <>
+                        <Link to="/login" className="cb-link cb-button">LOGIN</Link>
+                        <Link to="/register" className="cb-link cb-button cb-button--outline">SIGN UP</Link>
+                    </>
             }
         </div>
     </div>

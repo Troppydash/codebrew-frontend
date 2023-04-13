@@ -1,7 +1,7 @@
 import React from "react";
 
-// CONSTANT
-const BASE_URL = 'localhost:3030';
+// CONSTANTS
+const BASE_URL = 'http://localhost:3000';
 
 export const AuthContext = React.createContext(null);
 
@@ -19,7 +19,7 @@ export async function authLogin(details) {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
-                body: JSON.stringify(details)
+                body: JSON.stringify(details),
             }
         );
     } catch (err) {
@@ -27,12 +27,10 @@ export async function authLogin(details) {
     }
 
     if (!response.ok) {
-        throw "[response error]" + response.status;
+        throw "[response error] " + response.status;
     }
 
-    const json = await response.json();
-    return json.jwt;
-
+    return (await response.json()).token;
 }
 
 export async function authPost(

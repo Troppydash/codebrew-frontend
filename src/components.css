@@ -1,11 +1,4 @@
-.cb-button:hover {
-    cursor: pointer;
-}
 
-.cb-button:active {
-    position: relative;
-    top: 3px;
-}
 
 .cb-link {
     text-decoration: none;
@@ -13,6 +6,7 @@
 }
 
 .cb-link:hover {
+    cursor: pointer;
 }
 
 .cb-link:active {
@@ -31,7 +25,7 @@
     /*border: 2px solid black;*/
 
     font-family: "Montserrat", sans-serif;
-    font-weight: bolder;
+    font-weight: 500;
     font-size: 0.85rem;
 
     border: 3px solid #41644A;
@@ -44,4 +38,13 @@
 .cb-button--outline {
     background-color: #41644A;
     color: white;
+}
+
+.cb-button:hover {
+    cursor: pointer;
+}
+
+.cb-button:active {
+    position: relative;
+    top: 3px;
 }

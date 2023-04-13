@@ -7,10 +7,9 @@ export default function Error() {
             <div>
                 <h1>404 Not Found</h1>
                 <div>
-                    <Link to="/" className="cb-link">Go to home</Link>
+                    <Link to="/" className="cb-link">Go Back</Link>
                 </div>
             </div>
-
         </div>
     )
 }

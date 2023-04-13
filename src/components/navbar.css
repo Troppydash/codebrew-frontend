@@ -20,8 +20,15 @@
     font-weight: 500;
 }
 
+.navbar__links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .navbar__action--link {
     color: rgba(0, 0, 0, 0.58) !important;
+    white-space: nowrap;
 }
 
 .navbar__action a+a {

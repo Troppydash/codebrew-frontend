@@ -1,5 +1,5 @@
 import Navbar from "./components/navbar.jsx";
-import {BrowserRouter, Route,  Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import About from "./pages/about.jsx";
 import Home from "./pages/home.jsx";
 
@@ -14,6 +14,7 @@ import './app.css';
 import './components.css';
 
 export default function App() {
+    const [loaded, setLoaded] = useState(false);
     // this app component handles the auth
     const [auth, setAuth] = useState({
         username: 'unknown',
@@ -26,6 +27,7 @@ export default function App() {
         const jwt = localStorage.getItem('auth_jwt');
         const username = localStorage.getItem('auth_username');
         if (jwt == null || username == null) {
+            setLoaded(true);
             return;
         }
 
@@ -33,6 +35,7 @@ export default function App() {
             username,
             authenticated: true
         });
+        setLoaded(true);
     }, []);
 
 
@@ -45,8 +48,10 @@ export default function App() {
                         <Route path="*" element={<Error/>}/>
                         <Route path="/" element={<Home/>}/>
                         {
-                            auth.authenticated ? <Route path="/logout" element={<Logout/>}/>
-                                : <Route path="/login" element={<Login/>}/>
+                            loaded && (
+                                auth.authenticated ? <Route path="/logout" element={<Logout/>}/>
+                                    : <Route path="/login" element={<Login/>}/>
+                            )
                         }
 
                         <Route path="/about" element={<About/>}/>
