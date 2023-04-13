@@ -10,7 +10,7 @@
 }
 
 .login-left {
-    width: 60%;
+    width: 65%;
 
     display: flex;
     align-items: center;
@@ -46,8 +46,6 @@
 }
 
 .login-form button {
-    background-color: #82ac7c;
-    border: 2px solid black;
     padding: 0.5rem 0.75rem;
     min-width: 200px;
 }
@@ -60,7 +58,7 @@
 
 
 .login-right {
-    width: 40%;
+    width: 35%;
     background-color: #82ac7c;
 
     display: flex;

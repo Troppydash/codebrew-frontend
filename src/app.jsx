@@ -3,14 +3,15 @@ import {BrowserRouter, Route,  Routes} from "react-router-dom";
 import About from "./pages/about.jsx";
 import Home from "./pages/home.jsx";
 
-import './app.css';
-import './components.css';
+
 import Login from "./pages/login.jsx";
 import {AuthContext} from "./lib/auth.js";
 import {useEffect, useState} from "react";
 import Error from "./pages/404.jsx";
 import Logout from "./pages/logout.jsx";
 
+import './app.css';
+import './components.css';
 
 export default function App() {
     // this app component handles the auth
