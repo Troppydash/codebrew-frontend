@@ -64,13 +64,13 @@ export async function authPost(
     let response;
     try {
         response = await fetch(
-            `${BASE_URL}${path}`,
+            `${BASE_URL}/api${path}`,
             {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 method: "POST",
-                body: body
+                body: JSON.stringify(body)
             }
         );
     } catch (err) {
