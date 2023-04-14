@@ -15,6 +15,7 @@ import './components.css';
 import Register from "./pages/register.jsx";
 import Cost from "./pages/cost.jsx";
 import MyRecipes from "./pages/my-recipes.jsx";
+import FindRecipes from "./pages/find-recipes.jsx";
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
@@ -63,6 +64,7 @@ export default function App() {
                         <Route path="/about" element={<About/>}/>
                         <Route path="/calculator" element={<Cost/>}/>
                         <Route path="/recipes" element={<MyRecipes/>}/>
+                        <Route path="/find" element={<FindRecipes/>}/>
                     </Routes>
                 </BrowserRouter>
             </AuthContext.Provider>
