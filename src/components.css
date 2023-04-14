@@ -139,6 +139,12 @@
     outline: none;
 }
 
+.cb-textinput {
+    border: none;
+    background: none;
+    outline: none;
+}
+
 
 @media only screen and (max-width: 1024px) {
     .cb-big-title {

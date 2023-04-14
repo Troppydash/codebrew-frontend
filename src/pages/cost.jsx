@@ -3,6 +3,7 @@ import Footer from "../components/footer.jsx";
 import {useEffect, useMemo, useState} from "react";
 import {authPost} from "../lib/auth.js";
 import classNames from "classnames";
+import Modal from "../components/modal.jsx";
 
 const MOCK_PRODUCTS = [
     {
@@ -36,8 +37,24 @@ const MOCK_PRODUCTS = [
         unit: 'ml'
     },
 ]
+
+const MOCK_LIST = [
+    {
+        id: 0,
+        name: "milk",
+        unit: "kg",
+        quantity: 12,
+        price: 6.5,
+        value: {
+            protein: '12g',
+            energy: '120kJ',
+            sugar: '0g'
+        },
+    }
+]
 export default function Cost() {
 
+    /// dropdown products & searching functionality
     const [products, setProducts] = useState(
         MOCK_PRODUCTS
     );
@@ -52,8 +69,10 @@ export default function Cost() {
             .map((p, id) => ({...p, id}))
             .filter(p => p.name.toLowerCase().includes(f));
     }, [filter]);
-    const [selected, setSelected] = useState(null);
     const [quantity, setQuantity] = useState('');
+
+    /// product selection
+    const [selected, setSelected] = useState(null);
     const selectedMeasure = useMemo(() => {
         if (selected == null)
             return '';
@@ -68,9 +87,19 @@ export default function Cost() {
         setQuantity(products[id].amount);
     }
 
+    /// list functions
+    const [list, setList] = useState(MOCK_LIST);
+    const [listDetail, setListDetail] = useState(null);
 
-    const [list, setList] = useState([]);
+    const toggleListDetail = id => {
+        if (listDetail === id) {
+            setListDetail(null);
+        } else {
+            setListDetail(id);
+        }
+    }
 
+    /// components
     const dropdown = useMemo(() => {
         if (filter.trim().length === 0) {
             return <></>
@@ -98,13 +127,16 @@ export default function Cost() {
         const totalPrice = list.map(product => product.price).reduce((x, acc) => x + acc, 0);
 
         return <tr className="details-total">
-                <td></td>
-                <td>Total</td>
-                <td>${totalPrice.toFixed(2)}</td>
-                <td>total nut value</td>
-            </tr>
+            <td></td>
+            <td>Total</td>
+            <td>${totalPrice.toFixed(2)}</td>
+            <td>total nut value</td>
+        </tr>
 
     }, [list]);
+    const briefNut = nut => {
+        return Object.entries(nut).map(([key, value]) => key + ': ' + value).join(', ');
+    }
     const listTable = useMemo(() => {
         if (list.length === 0) {
             return <></>
@@ -123,9 +155,9 @@ export default function Cost() {
                 </thead>
                 <tbody>
                 {
-                    list.map(({name, quantity, unit, price, value}, key) => (
+                    list.map(({id, name, quantity, unit, price, value}, key) => (
                         <tr className="cost-details-entry" key={key}>
-                            <td>
+                            <td className="details-delete-container">
                                 <a className="cb-link details-delete" onClick={() => handleListDelete(key)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          className="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -142,10 +174,45 @@ export default function Cost() {
                             <td className="details-price">
                                 <span>${price.toFixed(2)}</span>
                             </td>
-                            <td className="details-nut">
-                                  <span>
-                                    {value}
-                                  </span>
+                            <td className="details-nut"
+                                onClick={() => toggleListDetail(id)}>
+
+                                <span className="details-nut-text">
+                                    {
+                                        listDetail === id ? (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" className="bi bi-caret-down-fill"
+                                                 viewBox="0 0 16 16">
+                                                <path
+                                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                            </svg>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" className="bi bi-caret-right-fill"
+                                                 viewBox="0 0 16 16">
+                                                <path
+                                                    d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                                            </svg>
+                                        )
+                                    }
+
+                                    {listDetail !== id && briefNut(value)}
+                                </span>
+                                {
+                                    listDetail === id && (
+                                        <table className="details-nut-dropdown">
+                                            {
+                                                Object.entries(value).map(([key, value]) => (
+                                                    <tr>
+                                                        <td>{key}</td>
+                                                        <td>{value}</td>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </table>
+                                    )
+
+                                }
                             </td>
 
                         </tr>
@@ -156,8 +223,9 @@ export default function Cost() {
             </table>
 
         </div>
-    }, [list]);
+    }, [list, listDetail]);
 
+    /// list modifications
     const handleAdd = async () => {
         if (selected == null) {
             alert('No products selected');
@@ -194,16 +262,20 @@ export default function Cost() {
             [
                 ...list,
                 {
+                    id: selected,
                     name: product.name,
                     unit: product.unit,
                     quantity,
                     price: price,
-                    value: 'nut value',
+                    value: {
+                        'protein': '150g',
+                        'energy': '100kj',
+                        'water': 'inf'
+                    },
                 }
             ]
         );
     }
-
 
     const handleListDelete = key => {
         setList(
@@ -211,7 +283,7 @@ export default function Cost() {
         );
     }
 
-
+    /// on start
     const retrieveProducts = async () => {
         try {
             const json = await authPost(
@@ -225,8 +297,31 @@ export default function Cost() {
         }
     }
     useEffect(() => {
-        retrieveProducts();
+        // retrieveProducts();
+        // selectProduct(1);
+        // setTimeout(() => {
+        //     handleAdd();
+        // }, 100);
     }, []);
+
+
+    const [recipeName, setRecipeName] = useState('');
+    const [recipeInstr, setRecipeInstr] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const handleSave = () => {
+        if (!recipeName || !recipeInstr) {
+            alert('please enter a recipe name and instructions');
+            return;
+        }
+
+        // save
+
+
+        setRecipeName('');
+        setRecipeInstr('');
+        setModalOpen(false);
+    }
 
     return <div className="cost-page">
         <h1 className="cb-big-title cost-title" style={{color: "black"}}>Cost Calculator</h1>
@@ -290,13 +385,55 @@ export default function Cost() {
             {listTable}
         </div>
 
+        <Modal open={modalOpen} handleClose={() => setModalOpen(false)}>
+            <div className="cost-modal">
+                <input placeholder="Recipe Name..."
+                       className="cb-input cost-modal-title"
+                       value={recipeName}
+                       onChange={e => setRecipeName(e.currentTarget.value)}/>
+                <div>
+                    <h1>Ingredients</h1>
+                    <ul>
+                        {
+                            list.map(item => (
+                                <li>{item.name}</li>
+                            ))
+                        }
+                    </ul>
+                    <hr/>
+                    <h1>Instructions</h1>
+                    <textarea className="cb-textinput cost-modal-instructions"
+                              placeholder={`This is how I prepare ${recipeName}...`}
+                              value={recipeInstr}
+                              onChange={e => setRecipeInstr(e.currentTarget.value)}>
+
+                    </textarea>
+                    <div className="cost-modal-save">
+                        <button className="cb-button"
+                                onClick={handleSave}>
+                            Save To Recipes
+                        </button>
+                        <button className="cb-button"
+                                onClick={handleSave}>
+                            Post To Community
+                        </button>
+                        <button className="cb-button cb-button--outline"
+                                onClick={() => setModalOpen(false)}>
+                            I'm not finished
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </Modal>
         <div className="cost-actions">
-            <button className="cb-button cb-button--outline">
-                Add To My Recipes
+            <button className="cb-button cb-button--outline"
+                    onClick={() => setModalOpen(true)}>
+                I Finished
             </button>
-            <button className="cb-button cb-button--outline">
-                Post This Recipe
-            </button>
+            {/*<button className="cb-button cb-button--outline">*/}
+            {/*    Post This Recipe*/}
+            {/*</button>*/}
         </div>
 
         <Footer/>
