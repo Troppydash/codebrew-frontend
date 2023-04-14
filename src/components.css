@@ -40,6 +40,14 @@
     color: white;
 }
 
+.cb-button--icon {
+    display: flex;
+}
+
+.cb-button--icon > svg {
+    margin-right: 0.5rem;
+}
+
 .cb-button:hover {
     cursor: pointer;
 }
@@ -147,11 +155,23 @@
     outline: none;
 }
 
+.cb-input--outline {
+    outline: blue;
+    border-radius: 15px;
+    background-color: white;
+    padding: 0.6rem 1rem;
+}
+
 .cb-textinput {
     border: none;
     background: none;
     outline: none;
 }
+
+.cb-select {
+
+}
+
 
 
 @media only screen and (max-width: 1024px) {
