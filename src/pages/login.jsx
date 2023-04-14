@@ -2,6 +2,7 @@ import "./login.css";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext, authLogin} from "../lib/auth.js";
 import {Link, Navigate, redirect} from "react-router-dom";
+import Footer from "../components/footer.jsx";
 
 export default function Login() {
 
@@ -48,9 +49,9 @@ export default function Login() {
             }
             <div className="login-left">
                 <div className="login-shift">
-                    <h1 className="login-form-title cb-title">Login to your account</h1>
+                    <h1 className="cb-form-title cb-title">Login to your account</h1>
 
-                    <form className="login-form" onSubmit={handleSubmit}>
+                    <form className="cb-form" onSubmit={handleSubmit}>
                         <div>
                             <input placeholder="email"
                                    value={username}
@@ -67,20 +68,25 @@ export default function Login() {
                             </div>
                         }
                         <div>
-                            <button type="submit" disabled={isFetching} className="cb-button cb-button--outline">LOGIN</button>
+                            <button type="submit" disabled={isFetching} className="cb-button cb-button--outline">LOGIN
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
             <div className="login-right">
-                <div className="login-shift">
+                <div style={{flexGrow: 1, display: "flex", justifyContent: "center", alignItems: "center"}}>
                     <h2 className="login-right-title cb-title">Don't have an account?</h2>
                     <p className="login-right-text">
-                        Make an account
+                        Do it, I dare you.
                     </p>
 
-                    <Link to="/register" className="login-signup cb-button cb-link">SIGNUP</Link>
+                    <Link to="/register" className="login-signup cb-button cb-button--outline cb-link">SIGN UP
+                        TODAY
+                    </Link>
                 </div>
+
+                <Footer/>
             </div>
         </div>
     )

@@ -67,6 +67,45 @@
 }
 
 
+.cb-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cb-form-title {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.cb-form-error {
+    color: red;
+}
+
+.cb-form div+div {
+    margin-top: 1.5rem;
+}
+
+.cb-form input {
+    border: 2px solid black;
+    border-radius: 25px;
+
+    padding: 0.5rem 1rem;
+
+    width: 400px;
+}
+
+.cb-form button {
+    padding: 0.5rem 0.75rem;
+    min-width: 200px;
+}
+
+.cb-form button:disabled {
+    background-color: #98a197;
+}
+
+
+
 @media only screen and (max-width: 1024px) {
     .cb-big-title {
         font-size: 3.1rem;
