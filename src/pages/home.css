@@ -9,8 +9,19 @@
     justify-content: stretch;
 }
 
+.home-title {
+    font-size: 5rem !important;
+    margin: 0;
+    font-weight: bolder !important;
+}
+
 .home-slide:first-child {
     height: 95vh;
+
+    background-image: url("/backgrounds/home-background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .home-slide > div {

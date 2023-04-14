@@ -4,13 +4,11 @@ import Footer from "../components/footer.jsx";
 
 export default function Home() {
     return <div className="home-page">
-        <div className="home-slide home-slide-1">
+        <div className="home-slide">
             <div>
-                <h1 className="cb-big-title">Catchy Phrase</h1>
+                <h1 className="cb-fancy home-title">Frugalicious!</h1>
                 <h3 className="cb-big-subtitle">
-                    Cooking Up Meals
-                    <br/>
-                    And Savings
+                    Cooking up savings with every meal
                 </h3>
                 <button className="cb-button cb-button--outline"
                         style={{minWidth: '200px'}}>
@@ -20,49 +18,52 @@ export default function Home() {
         </div>
         <div className="home-slide home-slide-2">
             <div>
-                <h1 className="cb-big-title">Cost Calculator</h1>
+                <h1 className="cb-big-title">
+                    What Food's Frugal?
+                    <br/>
+                    Don't Ask Google. Ask Us!
+                </h1>
                 <h3 className="cb-big-subtitle">
-                    sed do eiusmod tempor
+                    Frugalicious! We compile a list of ingredients and
                     <br/>
-                    incididunt ut labore et
-                    <br/>
-                    dolore magna aliqua.
+                    their estimated costs on demand.
                 </h3>
                 <button className="cb-button cb-button--outline"
                         style={{minWidth: '200px'}}>
-                    How much does your meal cost?
+                    How Much Does Your Meal Cost?
                 </button>
             </div>
         </div>
         <div className="home-slide home-slide-1">
             <div>
-                <h1 className="cb-big-title">Healthy Recipes</h1>
+                <h1 className="cb-big-title">Designed to Make a Difference</h1>
                 <h3 className="cb-big-subtitle">
-                    sed do eiusmod tempor
+                    Frugalicious! We generate a list of possible
                     <br/>
-                    incididunt ut labore et
+                    cheap and healthy meals from the selected
                     <br/>
-                    dolore magna aliqua.
+                    ingredients for you.
                 </h3>
                 <button className="cb-button cb-button--outline"
                         style={{minWidth: '200px'}}>
-                    Cheap and healthy recipes
+                    Cheap and Healthy Recipes
                 </button>
             </div>
         </div>
         <div className="home-slide home-slide-2">
             <div>
-                <h1 className="cb-big-title">Community</h1>
-                <h3 className="cb-big-subtitle">
-                    sed do eiusmod tempor
+                <h1 className="cb-big-title">
+                    Penny-pinchers?
                     <br/>
-                    incididunt ut labore et
+                    No.
                     <br/>
-                    dolore magna aliqua.
-                </h3>
+                    Economical consumers?
+                    <br/>
+                    Yes!
+                </h1>
                 <button className="cb-button cb-button--outline"
                         style={{minWidth: '200px'}}>
-                    Cheap and healthy recipes
+                    Cheap and Healthy recipes
                 </button>
             </div>
         </div>

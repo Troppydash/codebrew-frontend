@@ -46,7 +46,7 @@
 
 .cb-button:active {
     position: relative;
-    top: 3px;
+    top: 1px;
 }
 
 .cb-button--outline:disabled {
@@ -54,7 +54,7 @@
 }
 
 .cb-big-title {
-    font-size: 4.5rem;
+    font-size: 3rem;
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
     margin: 0;
@@ -62,7 +62,7 @@
 }
 
 .cb-big-subtitle {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
     color: #263A29;
