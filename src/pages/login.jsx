@@ -53,17 +53,18 @@ export default function Login() {
 
                     <form className="cb-form" onSubmit={handleSubmit}>
                         <div>
-                            <input placeholder="email"
+                            <input placeholder="Username"
                                    value={username}
                                    onChange={e => setUsername(e.currentTarget.value)}/>
                         </div>
                         <div>
-                            <input placeholder="password"
+                            <input placeholder="Password"
+                                   type="password"
                                    value={password}
                                    onChange={e => setPassword(e.currentTarget.value)}/>
                         </div>
                         {
-                            error && <div className="login-form-error">
+                            error && <div className="cb-form-error">
                                 <span>{error}</span>
                             </div>
                         }

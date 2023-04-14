@@ -8,7 +8,7 @@ export default function Navbar() {
     const {auth} = useContext(AuthContext);
 
     return <div className="navbar">
-        <Link className="cb-link navbar__title" to="/">
+        <Link className="cb-link cb-fancy navbar__title" to="/">
             Frugalicious!
         </Link>
 

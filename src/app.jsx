@@ -12,6 +12,7 @@ import Logout from "./pages/logout.jsx";
 
 import './app.css';
 import './components.css';
+import Register from "./pages/register.jsx";
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
@@ -49,11 +50,14 @@ export default function App() {
                         <Route path="/" element={<Home/>}/>
                         {
                             loaded && (
-                                auth.authenticated ? <Route path="/logout" element={<Logout/>}/>
-                                    : <Route path="/login" element={<Login/>}/>
+                                auth.authenticated
+                                    ? <Route path="/logout" element={<Logout/>}/>
+                                    : <>
+                                        <Route path="/login" element={<Login/>}/>
+                                        <Route path="/register" element={<Register/>}/>
+                                    </>
                             )
                         }
-
                         <Route path="/about" element={<About/>}/>
                     </Routes>
                 </BrowserRouter>

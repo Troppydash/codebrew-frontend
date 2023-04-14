@@ -83,14 +83,14 @@
 }
 
 .cb-form div+div {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 }
 
 .cb-form input {
     border: 2px solid black;
     border-radius: 25px;
 
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 1rem;
 
     width: 400px;
 }
@@ -104,6 +104,12 @@
     background-color: #98a197;
 }
 
+
+.cb-fancy {
+    font-family: 'Courgette', cursive;
+    color: #41644A !important;
+    font-size: 1.15rem;
+}
 
 
 @media only screen and (max-width: 1024px) {
