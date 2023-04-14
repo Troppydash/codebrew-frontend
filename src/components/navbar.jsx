@@ -9,7 +9,7 @@ export default function Navbar() {
 
     return <div className="navbar">
         <Link className="cb-link navbar__title" to="/">
-            Frugalicious
+            Frugalicious!
         </Link>
 
         <div className="navbar__action navbar__links">

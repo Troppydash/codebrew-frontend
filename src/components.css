@@ -48,3 +48,30 @@
     position: relative;
     top: 3px;
 }
+
+
+
+.cb-big-title {
+    font-size: 4.5rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    margin: 0;
+    color: #263A29;
+}
+
+.cb-big-subtitle {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: #263A29;
+}
+
+
+@media only screen and (max-width: 1024px) {
+    .cb-big-title {
+        font-size: 3.1rem;
+    }
+    .cb-big-subtitle {
+        font-size: 1.5rem;
+    }
+}
