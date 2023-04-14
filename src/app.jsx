@@ -16,6 +16,7 @@ import Register from "./pages/register.jsx";
 import Cost from "./pages/cost.jsx";
 import MyRecipes from "./pages/my-recipes.jsx";
 import FindRecipes from "./pages/find-recipes.jsx";
+import Community from "./pages/community.jsx";
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
@@ -65,6 +66,7 @@ export default function App() {
                         <Route path="/calculator" element={<Cost/>}/>
                         <Route path="/recipes" element={<MyRecipes/>}/>
                         <Route path="/find" element={<FindRecipes/>}/>
+                        <Route path="/community" element={<Community/>}/>
                     </Routes>
                 </BrowserRouter>
             </AuthContext.Provider>

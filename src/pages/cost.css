@@ -13,8 +13,8 @@
     /*overflow: auto;*/
     background: radial-gradient(
             50% 50% at 50% 50%,
-            rgba(147, 197, 114, 0.22) 0%,
-            rgba(147, 197, 114, 0.56) 100%
+            rgba(147, 197, 114, 0.06) 0%,
+            rgba(147, 197, 114, 0.26) 100%
     );
 
     min-height: 500px;

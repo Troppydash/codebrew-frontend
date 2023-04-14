@@ -3,8 +3,16 @@
     min-height: 300px;
 
     background-color: #E2EFD9;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .recipe-list {
+    flex-grow: 1;
     padding-left: 1rem;
+}
+
+.recipe-card > hr {
+    width: 100%;
 }

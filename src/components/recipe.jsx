@@ -4,7 +4,8 @@ export default function Recipe(
     {
         name,
         ingredients,
-        cost
+        cost,
+        children
     }
 ) {
     return <div className="cb-card recipe-card">
@@ -22,5 +23,6 @@ export default function Recipe(
                 ))
             }
         </ul>
+        {children}
     </div>
 }
