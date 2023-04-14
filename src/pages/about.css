@@ -19,7 +19,7 @@
 }
 
 .about-slide-1 {
-    background-image: url("backgrounds/about-background.png");
+    background-image: url("/backgrounds/about-background.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center center;
@@ -30,7 +30,7 @@
 }
 
 .about-slide-3 {
-    background-image: url("backgrounds/about-background2.png");
+    background-image: url("/backgrounds/about-background2.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center center;
