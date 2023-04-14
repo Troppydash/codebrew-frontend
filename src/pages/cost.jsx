@@ -203,7 +203,7 @@ export default function Cost() {
                                         <table className="details-nut-dropdown">
                                             {
                                                 Object.entries(value).map(([key, value]) => (
-                                                    <tr>
+                                                    <tr key={key}>
                                                         <td>{key}</td>
                                                         <td>{value}</td>
                                                     </tr>
@@ -324,7 +324,7 @@ export default function Cost() {
     }
 
     return <div className="cost-page">
-        <h1 className="cb-big-title cost-title" style={{color: "black"}}>Cost Calculator</h1>
+        <h1 className="cb-page-title">Cost Calculator</h1>
 
         <div className="cost-box">
             <div className="cost-search">
@@ -395,8 +395,8 @@ export default function Cost() {
                     <h1>Ingredients</h1>
                     <ul>
                         {
-                            list.map(item => (
-                                <li>{item.name}</li>
+                            list.map((item, key) => (
+                                <li key={key}>{item.name}</li>
                             ))
                         }
                     </ul>

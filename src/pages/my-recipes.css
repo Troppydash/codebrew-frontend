@@ -1,0 +1,19 @@
+.recipes-page {
+    width: 100vw;
+    min-height: 100vh;
+
+    padding: 0 10%;
+}
+
+
+.recipes-my {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.recipes-my > div {
+    margin: 0 1rem 4rem;
+}
