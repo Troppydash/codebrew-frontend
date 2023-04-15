@@ -1,7 +1,7 @@
 import React from "react";
 
 // CONSTANTS
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'localhost:3000';
 
 export const AuthContext = React.createContext(null);
 
