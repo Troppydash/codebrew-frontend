@@ -28,9 +28,8 @@ export default function About() {
             </div>
         </div>
         <div className="about-slide about-slide-2">
-            <div>
-                <h1 className="cb-big-title">Your Benefits</h1>
-                <h3 className="cb-big-subtitle">Add Descriptions</h3>
+            <div style={{width: '2000px', marginLeft: '15%'}}>
+                <img src="/backgrounds/last.png" style={{width: '100%', height: 'auto'}} />
             </div>
         </div>
         <div className="about-slide about-slide-3">
