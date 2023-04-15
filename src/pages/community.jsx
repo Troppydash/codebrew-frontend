@@ -6,6 +6,7 @@ import Post from "../components/post.jsx";
 import Footer from "../components/footer.jsx";
 import Recipe from "../components/recipe.jsx";
 import {AuthContext, authPost} from "../lib/auth.js";
+import {Navigate} from "react-router-dom";
 
 const SAMPLE_TEXT = "this is some post Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh tellus molestie nunc non blandit massa enim nec.";
 const SAMPLE_TEXT2 = `
@@ -156,7 +157,7 @@ function Recipes() {
             );
 
             setRecipes(results.map((res, id) => ({
-                name: "Recipe " + (id+1),
+                name: res.name,
                 username: res.username,
                 ingredients: res.ingredients,
                 instructions: res.instructions,
@@ -172,9 +173,13 @@ function Recipes() {
         getRecipes();
     }, []);
 
+    const [redirect, setRedirect] = useState(false);
+
     return <div className="community-recipes">
+        {redirect && <Navigate to="/recipes" />}
         <div className="community-recipes-action">
-            <button className="cb-button cb-button--text cb-button--icon">
+            <button className="cb-button cb-button--text cb-button--icon"
+                    onClick={() => setRedirect(true)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      className="bi bi-plus" viewBox="0 0 16 16">
                     <path

@@ -94,13 +94,42 @@ export default function MyRecipes() {
       fetchRecipes();
     }, []);
 
+    const postRecipe = async id => {
+        const recipe = recipes[id];
+        try  {
+            const isFine = await authPost(
+                '/chat/recipe_post',
+                {
+                    username: auth.username,
+                    name: recipe.name,
+                    ingredients: recipe.ingredients,
+                    instructions: recipe.instructions,
+                    likes: 0
+                }
+            );
+
+            if (!isFine) {
+                alert('post is toxic, please retry');
+            }
+        } catch (err) {
+            console.log('failed to post recipe');
+        }
+    }
+
     return <div className="recipes-page">
         <h1 className="cb-page-title">My Recipes</h1>
         <div className="recipes-my">
             {
-                recipes.map(rec => (
+                recipes.map((rec, id) => (
                     <Recipe {...rec}>
-                        <p>{rec.instructions}</p>
+                        <p style={{flexGrow: 2}}>{rec.instructions}</p>
+                        <div>
+                            <button className="cb-button cb-button--outline"
+                                    style={{float: 'right'}}
+                                    onClick={() => postRecipe(id)}>
+                                Post
+                            </button>
+                        </div>
                     </Recipe>
                 ))
             }
