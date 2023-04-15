@@ -14,7 +14,7 @@
     width: 100%;
 }
 
-.about-slide > div *+* {
+.about-slide > div > *+* {
     margin-top: 2rem;
 }
 

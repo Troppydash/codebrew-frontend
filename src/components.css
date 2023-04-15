@@ -87,7 +87,7 @@
 
 .cb-big-subtitle {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0;
     color: #263A29;
 }
@@ -134,7 +134,7 @@
 .cb-fancy {
     font-family: 'Courgette', cursive;
     color: #41644A !important;
-    font-size: 1.15rem;
+    font-size: 1.25rem;
 }
 
 .cb-card {

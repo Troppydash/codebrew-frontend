@@ -9,6 +9,7 @@
     justify-content: stretch;
 }
 
+
 .home-title {
     font-size: 5rem !important;
     margin: 0;
@@ -53,4 +54,16 @@
             rgba(147, 197, 114, 0.22) 0%,
             rgba(147, 197, 114, 0.56) 100%
     );
+}
+
+
+.home-img {
+    width: 30%;
+
+}
+
+.home-img > img {
+    display: block;
+    width: 100%;
+    height: auto;
 }

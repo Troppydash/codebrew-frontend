@@ -10,27 +10,31 @@ export default function Home() {
                 <h3 className="cb-big-subtitle">
                     Cooking up savings with every meal
                 </h3>
-                <button className="cb-button cb-button--outline"
-                        style={{minWidth: '200px'}}>
-                    GET STARTED!
-                </button>
+                <div>
+                    <Link to="/register" className="cb-link cb-button cb-button--outline"
+                       style={{minWidth: '200px'}}>
+                        GET STARTED!
+                    </Link>
+                </div>
+
             </div>
         </div>
         <div className="home-slide home-slide-2">
+            <div className="home-img">
+                <img src="/backgrounds/home-2.png"/>
+            </div>
             <div>
                 <h1 className="cb-big-title">
-                    What Food's Frugal?
-                    <br/>
                     Don't Ask Google. Ask Us!
                 </h1>
                 <h3 className="cb-big-subtitle">
-                    Frugalicious! We compile a list of ingredients and
+                    Frugalicious! We compile a list of ingredients
                     <br/>
-                    their estimated costs on demand.
+                    and their estimated costs on demand.
                 </h3>
                 <button className="cb-button cb-button--outline"
                         style={{minWidth: '200px'}}>
-                    How Much Does Your Meal Cost?
+                    Find Out How Much Does Your Meal Cost?
                 </button>
             </div>
         </div>
@@ -49,23 +53,26 @@ export default function Home() {
                     Cheap and Healthy Recipes
                 </button>
             </div>
+            <div className="home-img">
+                <img src="/backgrounds/calc%201.png"/>
+            </div>
         </div>
         <div className="home-slide home-slide-2">
+            <div className="home-img">
+                <img src="/backgrounds/section2.png"/>
+            </div>
             <div>
                 <h1 className="cb-big-title">
-                    Penny-pinchers?
+                    Penny-pinchers? No.
                     <br/>
-                    No.
-                    <br/>
-                    Economical consumers?
-                    <br/>
-                    Yes!
+                    Economical consumers? Yes!
                 </h1>
                 <button className="cb-button cb-button--outline"
                         style={{minWidth: '200px'}}>
-                    Cheap and Healthy recipes
+                    Join Our Community
                 </button>
             </div>
+
         </div>
 
         <div className="home-footer">
