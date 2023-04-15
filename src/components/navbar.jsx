@@ -19,6 +19,7 @@ export default function Navbar() {
                     <Link to="/calculator" className="cb-link navbar__action--link">Cost Calculator</Link>
                     <Link to="/recipes" className="cb-link navbar__action--link">My Recipes</Link>
                     <Link to="/find" className="cb-link navbar__action--link">Find Recipes</Link>
+                    <Link to="/community" className="cb-link navbar__action--link">Community</Link>
                 </>
             }
 

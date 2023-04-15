@@ -1,7 +1,7 @@
 import './cost.css';
 import Footer from "../components/footer.jsx";
-import {useEffect, useMemo, useState} from "react";
-import {authPost} from "../lib/auth.js";
+import {useContext, useEffect, useMemo, useState} from "react";
+import {AuthContext, authPost} from "../lib/auth.js";
 import classNames from "classnames";
 import Modal from "../components/modal.jsx";
 
@@ -56,7 +56,7 @@ export default function Cost() {
 
     /// dropdown products & searching functionality
     const [products, setProducts] = useState(
-        MOCK_PRODUCTS
+        []
     );
     const [filter, setFilter] = useState('');
     const filteredProducts = useMemo(() => {
@@ -88,7 +88,7 @@ export default function Cost() {
     }
 
     /// list functions
-    const [list, setList] = useState(MOCK_LIST);
+    const [list, setList] = useState([]);
     const [listDetail, setListDetail] = useState(null);
 
     const toggleListDetail = id => {
@@ -233,9 +233,19 @@ export default function Cost() {
         }
 
         const product = products[selected];
+
+        const CONF_DICT = {
+            'kg': 1000,
+            'l': 1000,
+        }
+        let trueQuantity = quantity;
+        if (CONF_DICT[product.unit]) {
+            trueQuantity *= CONF_DICT[product.unit];
+        }
+
         const body = {
             name: product.name,
-            quantity,
+            quantity: trueQuantity,
         };
         const price = (quantity / product.amount * product.price);
 
@@ -249,8 +259,8 @@ export default function Cost() {
 
             // add to list
             let values = [];
-            for (const [key, value] of Object.entries(json.data)) {
-                values[key] = `${value.quantity}${value.unit}`;
+            for (const [key, value] of Object.entries(json)) {
+                values[key] = `${value.amount.toFixed(2)}${value.unit}`;
             }
 
             setList(
@@ -274,7 +284,6 @@ export default function Cost() {
             setRetrieving(false);
             setFilter('');
         }
-
 
 
     }
@@ -317,18 +326,32 @@ export default function Cost() {
     const [recipeInstr, setRecipeInstr] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
 
-    const handleSave = () => {
+    const {auth} = useContext(AuthContext);
+    const handleSave = async () => {
         if (!recipeName || !recipeInstr) {
             alert('please enter a recipe name and instructions');
             return;
         }
 
         // save
+        try {
 
+            await authPost(
+                '/recipe/add_normal',
+                {
+                    username: auth.username,
+                    ingredients: list.map(l => l.name),
+                    instructions: recipeInstr,
+                    name: recipeName,
+                }
+            );
 
-        setRecipeName('');
-        setRecipeInstr('');
-        setModalOpen(false);
+            setRecipeName('');
+            setRecipeInstr('');
+            setModalOpen(false);
+        } catch (err) {
+            console.log('cannot save recipes');
+        }
     }
 
     return <div className="cost-page">
