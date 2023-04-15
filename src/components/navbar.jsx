@@ -14,11 +14,14 @@ export default function Navbar() {
 
         <div className="navbar__action navbar__links">
             <Link to="/about" className="cb-link navbar__action--link">About</Link>
-            <Link to="/calculator" className="cb-link navbar__action--link">Cost Calculator</Link>
-            <Link to="/recipes" className="cb-link navbar__action--link">My Recipes</Link>
-            <Link to="/find" className="cb-link navbar__action--link">Find Recipes</Link>
-            <Link to="/fridge" className="cb-link navbar__action--link">My Fridge</Link>
-            <Link to="/community" className="cb-link navbar__action--link">Community</Link>
+            {
+                auth.authenticated && <>
+                    <Link to="/calculator" className="cb-link navbar__action--link">Cost Calculator</Link>
+                    <Link to="/recipes" className="cb-link navbar__action--link">My Recipes</Link>
+                    <Link to="/find" className="cb-link navbar__action--link">Find Recipes</Link>
+                </>
+            }
+
         </div>
         <div className="navbar__spacer"></div>
         <div className="navbar__action navbar__auth">

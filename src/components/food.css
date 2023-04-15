@@ -1,5 +1,7 @@
 .food-card {
     padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .food-image {
@@ -13,7 +15,7 @@
     padding-bottom: 100%;
 }
 
-.food-image > img {
+.food-image > a > img {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -27,6 +29,7 @@
 
 .food-info {
     margin: 0 0 1rem;
+    flex-grow: 1;
 }
 
 .food-info > span {

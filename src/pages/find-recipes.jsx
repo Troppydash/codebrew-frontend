@@ -2,6 +2,8 @@ import "./find-recipes.css";
 import Select from 'react-select';
 import Food from "../components/food.jsx";
 import Footer from "../components/footer.jsx";
+import {useContext, useEffect, useState} from "react";
+import {AuthContext, authPost} from "../lib/auth.js";
 
 const SELECT_STYLES = {
     control: (base, state) => ({
@@ -33,10 +35,92 @@ const SELECT_THEME = (theme) => ({
 });
 
 export default function FindRecipes() {
+
+    const [query, setQuery] = useState('');
+    const [diet, setDiet] = useState('');
+    const [intol, setIntol] = useState('');
+    const [price, setPrice] = useState('asc');
+
+    const [recipes, setRecipes] = useState([]);
+    const {auth} = useContext(AuthContext);
+    const fetchRecipes = async () => {
+        // try {
+        //     const json = await authPost(
+        //         '/recipe/retrieve',
+        //         {
+        //             username: auth.username
+        //         }
+        //     );
+        //
+        //     const recipes = json.data.online.map((entry, i) => ({
+        //         name: 'Recipe ' + (i+1),
+        //         image: entry.image,
+        //         source: entry.sourceUrl,
+        //         summary: entry.summary,
+        //         price: entry.pricePerServing,
+        //     }));
+        //     setRecipes(recipes);
+        // } catch (err) {
+        //     console.log('error fetching recipes');
+        // }
+    };
+
+    useEffect(() => {
+        fetchRecipes();
+    }, []);
+
+    const addRecipe = async id => {
+        try {
+            const product = recipes[id];
+            await authPost(
+                '/recipe/add_online',
+                {
+                    username: auth.username,
+                    image: product.image,
+                    sourceUrl: product.source,
+                    summary: product.summary,
+                    pricePerServing: product.price
+                }
+            );
+        } catch (err) {
+            console.log('error adding recipe');
+        }
+    }
+
+
+    const handleSearch = async event => {
+        event.preventDefault();
+
+        try {
+            const result = await authPost(
+                '/recipe/search',
+                {
+                    query: query,
+                    diet,
+                    intolerance: intol,
+                    direction: price,
+                }
+            );
+
+            const recipes = result.data.map(rec => ({
+                name: rec.name,
+                image: rec.image,
+                summary: rec.summary,
+                source: rec.sourceUrl,
+                price: rec.pricePerServing
+            }));
+            setRecipes(recipes);
+        } catch (err) {
+            console.log('cannot fetch recipes');
+        }
+    }
+
     return <>
-        <form className="find-search">
+        <form className="find-search" onSubmit={handleSearch}>
             <input className="cb-input cb-input--outline find-searchbar"
-                   placeholder="What's in Your Fridge?"/>
+                   placeholder="What's in Your Fridge?"
+                   value={query}
+                   onChange={e => setQuery(e.currentTarget.value)}/>
 
             <button type="submit" className="cb-button cb-button--icon cb-button--outline">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -50,41 +134,41 @@ export default function FindRecipes() {
         <div className="find-page">
             <div className="find-filters">
                 <Select
-                    defaultValue={
-                        {value: 'all', label: 'All Menus'}
-                    }
                     options={[
-                        {value: 'all', label: 'All Menus'},
-                        {value: 'gf', label: 'Gluten Free'},
-                        {value: 'kt', label: 'Ketogenic'},
-                        {value: 'v', label: 'Vegetarian'},
+                        {value: '', label: 'All Menus'},
+                        {value: 'Gluten Free', label: 'Gluten Free'},
+                        {value: 'Ketogenic', label: 'Ketogenic'},
+                        {value: 'Vegetarian', label: 'Vegetarian'},
                     ]}
+                    defaultValue={{value: '', label: 'All Menus'}}
+                    onChange={e => setDiet(e.value)}
                     theme={SELECT_THEME}
                     styles={SELECT_STYLES}/>
 
                 <Select
                     defaultValue={
-                        {value: 'none', label: 'No Intolerances'}
+                        {value: '', label: 'No Intolerances'}
                     }
                     options={[
-                        {value: 'none', label: 'No Intolerances'},
-                        {value: 'dairy', label: 'Dairy'},
-                        {value: 'peanut', label: 'Peanut'},
-                        {value: 'gluten', label: 'Gluten'},
+                        {value: '', label: 'No Intolerances'},
+                        {value: 'Dairy', label: 'Dairy'},
+                        {value: 'Peanut', label: 'Peanut'},
+                        {value: 'Gluten', label: 'Gluten'},
                     ]}
+                    onChange={e => setIntol(e.value)}
                     theme={SELECT_THEME}
                     styles={SELECT_STYLES}/>
 
 
                 <Select
                     defaultValue={
-                        {value: 'all', label: 'Price Range'}
+                        {value: 'asc', label: 'Cheapest First'}
                     }
                     options={[
-                        {value: 'all', label: 'Price Range'},
-                        {value: 'ascending', label: 'Cheapest First'},
-                        {value: 'descending', label: 'Expensive First'},
+                        {value: 'asc', label: 'Cheapest First'},
+                        {value: 'desc', label: 'Expensive First'},
                     ]}
+                    onChange={e => setPrice(e.value)}
                     theme={SELECT_THEME}
                     styles={SELECT_STYLES}/>
 
@@ -92,15 +176,18 @@ export default function FindRecipes() {
 
             <div className="find-recipes">
                 {
-                    Array.from({length: 10})
-                        .map(() => (
+                    recipes
+                        .map((rec, id) => (
                             <Food
-                                cost={17}
-                                nv={'energy: 17kJ'}
-                                url={'https://live-production.wcms.abc-cdn.net.au/b983edcea41673904b177071b138dadb?impolicy=wcms_crop_resize&cropH=861&cropW=1529&xPos=0&yPos=345&width=862&height=485'}
-                                name={'Apple'}>
+                                cost={rec.price}
+                                nv={rec.summary}
+                                url={rec.image}
+                                name={rec.name}>
                                 <div className="find-recipes-action">
-                                    <button className="cb-button cb-button--outline">Add To Recipe</button>
+                                    <button className="cb-button cb-button--outline"
+                                            onClick={() => addRecipe(id)}>
+                                        Add To Recipe
+                                    </button>
                                 </div>
                             </Food>
                         ))

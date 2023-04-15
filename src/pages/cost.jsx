@@ -234,7 +234,7 @@ export default function Cost() {
 
         const product = products[selected];
         const body = {
-            ingredients: product.name,
+            name: product.name,
             quantity,
         };
         const price = (quantity / product.amount * product.price);
@@ -248,6 +248,24 @@ export default function Cost() {
             );
 
             // add to list
+            let values = [];
+            for (const [key, value] of Object.entries(json.data)) {
+                values[key] = `${value.quantity}${value.unit}`;
+            }
+
+            setList(
+                [
+                    ...list,
+                    {
+                        id: selected,
+                        name: product.name,
+                        unit: product.unit,
+                        quantity,
+                        price: price,
+                        value: values,
+                    }
+                ]
+            );
         } catch (err) {
             console.log('failed to retrieve info');
         } finally {
@@ -258,23 +276,7 @@ export default function Cost() {
         }
 
 
-        setList(
-            [
-                ...list,
-                {
-                    id: selected,
-                    name: product.name,
-                    unit: product.unit,
-                    quantity,
-                    price: price,
-                    value: {
-                        'protein': '150g',
-                        'energy': '100kj',
-                        'water': 'inf'
-                    },
-                }
-            ]
-        );
+
     }
 
     const handleListDelete = key => {
@@ -290,14 +292,20 @@ export default function Cost() {
                 '/products/list',
                 {}
             );
-            setProducts(json.data);
+            setProducts(
+                json.map(product => ({
+                    name: product.product,
+                    price: product.price,
+                    amount: product.quantity,
+                    unit: product.unit
+                }))
+            );
         } catch (err) {
             console.log('failed to retrieve products');
-            return;
         }
     }
     useEffect(() => {
-        // retrieveProducts();
+        retrieveProducts();
         // selectProduct(1);
         // setTimeout(() => {
         //     handleAdd();

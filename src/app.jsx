@@ -52,21 +52,23 @@ export default function App() {
                     <Routes>
                         <Route path="*" element={<Error/>}/>
                         <Route path="/" element={<Home/>}/>
+                        <Route path="/about" element={<About/>}/>
                         {
                             loaded && (
                                 auth.authenticated
-                                    ? <Route path="/logout" element={<Logout/>}/>
+                                    ? <>
+                                        <Route path="/logout" element={<Logout/>}/>
+                                        <Route path="/calculator" element={<Cost/>}/>
+                                        <Route path="/recipes" element={<MyRecipes/>}/>
+                                        <Route path="/find" element={<FindRecipes/>}/>
+                                        <Route path="/community" element={<Community/>}/>
+                                    </>
                                     : <>
                                         <Route path="/login" element={<Login/>}/>
                                         <Route path="/register" element={<Register/>}/>
                                     </>
                             )
                         }
-                        <Route path="/about" element={<About/>}/>
-                        <Route path="/calculator" element={<Cost/>}/>
-                        <Route path="/recipes" element={<MyRecipes/>}/>
-                        <Route path="/find" element={<FindRecipes/>}/>
-                        <Route path="/community" element={<Community/>}/>
                     </Routes>
                 </BrowserRouter>
             </AuthContext.Provider>

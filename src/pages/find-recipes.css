@@ -37,7 +37,7 @@
 .find-recipes {
     display: grid;
     gap: 2rem 2rem;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto;
     margin-bottom: 1rem;
 }
 
