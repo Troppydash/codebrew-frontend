@@ -1,10 +1,11 @@
 import './community.css';
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import classNames from "classnames";
 import Modal from "../components/modal.jsx";
 import Post from "../components/post.jsx";
 import Footer from "../components/footer.jsx";
 import Recipe from "../components/recipe.jsx";
+import {AuthContext, authPost} from "../lib/auth.js";
 
 const SAMPLE_TEXT = "this is some post Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh tellus molestie nunc non blandit massa enim nec.";
 const SAMPLE_TEXT2 = `
@@ -13,6 +14,75 @@ this is some post Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed d
 
 function Posts() {
     const [open, setOpen] = useState(false);
+    const [posts, setPosts] = useState([]);
+
+    const retrievePosts = async () => {
+        try {
+            const result = await authPost(
+                '/chat/retrieve_post',
+                {}
+            );
+
+            setPosts(result.map(res => ({
+                text: res.post,
+                username: res.username,
+                likes: res.likes,
+                date: res.date
+            })));
+        } catch (err) {
+            console.log('cannot retrieve posts');
+        }
+    };
+    useEffect(() => {
+        retrievePosts();
+
+    }, []);
+
+    const {auth} = useContext(AuthContext);
+    const [post, setPost] = useState('');
+    const handlePost = async () => {
+        try {
+            const result = await authPost(
+                '/chat/post',
+                {
+                    username: auth.username,
+                    post: post,
+                    date: '2023-04-15',
+                    likes: 0
+                }
+            );
+
+            if (result === false) {
+                alert('toxic post, not posted');
+                return;
+            }
+
+            setOpen(false);
+            setPost('');
+            await retrievePosts();
+        } catch (err) {
+            console.log('failed to post post');
+        }
+    }
+
+    const handleLike = async id => {
+        const post = posts[id];
+        try {
+            await authPost(
+                '/chat/post',
+                {
+                    username: auth.username,
+                    post: post.text,
+                    date: '2023-04-15',
+                    likes: post.likes + 1
+                }
+            );
+
+            await retrievePosts();
+        } catch (err) {
+            console.log('failed to like post');
+        }
+    }
 
     return <div>
         <div>
@@ -28,9 +98,12 @@ function Posts() {
         </div>
         <div className="posts-posts">
             {
-                Array.from({length: 10})
-                    .map(() => (
-                        <Post text={SAMPLE_TEXT2} likes={99} username="User ID"/>
+                posts
+                    .map((post, id) => (
+                        <Post text={post.text}
+                              likes={post.likes}
+                              username={post.username}
+                              handleLike={() => handleLike(id)}/>
                     ))
             }
         </div>
@@ -39,10 +112,15 @@ function Posts() {
             <div className="posts-modal">
                 <span className="posts-modal-title">Create Post</span>
                 <hr/>
-                <textarea className="cb-textinput posts-textinput" placeholder="Share with the Community..."/>
+                <textarea className="cb-textinput posts-textinput"
+                          placeholder="Share with the Community..."
+                          value={post}
+                          onChange={e => setPost(e.currentTarget.value)}/>
                 <hr/>
                 <div className="posts-modal-action">
-                    <button className="cb-button">Post</button>
+                    <button className="cb-button"
+                            onClick={handlePost}>Post
+                    </button>
                     <button className="cb-button cb-button--outline"
                             onClick={() => setOpen(false)}>
                         Close
@@ -68,7 +146,31 @@ const SAMPLE_RECIPE = {
 const SAMPLE_RECIPES = Array.from({length: 10}).map(() => SAMPLE_RECIPE);
 
 function Recipes() {
-    const [recipes, setRecipes] = useState(SAMPLE_RECIPES);
+    const [recipes, setRecipes] = useState([]);
+
+    const getRecipes = async () => {
+        try {
+            const results = await authPost(
+                '/chat/retrieve_recipe',
+                {}
+            );
+
+            setRecipes(results.map((res, id) => ({
+                name: "Recipe " + (id+1),
+                username: res.username,
+                ingredients: res.ingredients,
+                instructions: res.instructions,
+                likes: res.likes,
+                cost: null,
+            })));
+        } catch (err) {
+            console.log('failed to retrieve the recipes');
+        }
+    }
+
+    useEffect(() => {
+        getRecipes();
+    }, []);
 
     return <div className="community-recipes">
         <div className="community-recipes-action">
@@ -143,7 +245,6 @@ export default function Community() {
                     onClick={() => visitPage(1)}>Recipes
             </button>
         </div>
-
 
         {
             [
