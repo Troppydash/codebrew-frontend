@@ -73,7 +73,7 @@ export default function MyRecipes() {
                 name: 'Recipe ' + (i+1),
                 ingredients: entry.ingredients,
                 instructions: entry.instructions,
-                cost: 69.420
+                cost: entry.pricePerServing,
             }));
             const recipesOnline = json.data.online.map((entry, i) => ({
                 name: 'Recipe',

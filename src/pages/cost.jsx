@@ -125,7 +125,6 @@ export default function Cost() {
             return <></>;
 
         const totalPrice = list.map(product => product.price).reduce((x, acc) => x + acc, 0);
-
         return <tr className="details-total">
             <td></td>
             <td>Total</td>
@@ -336,6 +335,7 @@ export default function Cost() {
         // save
         try {
 
+            const totalPrice = list.map(l => l.price).reduce((x, acc) => x + acc, 0);
             await authPost(
                 '/recipe/add_normal',
                 {
@@ -343,6 +343,7 @@ export default function Cost() {
                     ingredients: list.map(l => l.name),
                     instructions: recipeInstr,
                     name: recipeName,
+                    pricePerServing: totalPrice
                 }
             );
 
