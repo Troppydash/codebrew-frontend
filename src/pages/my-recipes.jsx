@@ -70,13 +70,13 @@ export default function MyRecipes() {
             );
 
             const recipes = json.data.normal.map((entry, i) => ({
-                name: 'Recipe ' + (i+1),
+                name: entry.name,
                 ingredients: entry.ingredients,
                 instructions: entry.instructions,
                 cost: entry.pricePerServing,
             }));
             const recipesOnline = json.data.online.map((entry, i) => ({
-                name: 'Recipe',
+                // name: 'Recipe',
                 image: entry.image,
                 source: entry.sourceUrl,
                 summary: entry.summary,
