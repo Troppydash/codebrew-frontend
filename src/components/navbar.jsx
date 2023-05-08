@@ -20,6 +20,7 @@ export default function Navbar() {
                     <Link to="/recipes" className="cb-link navbar__action--link">My Recipes</Link>
                     <Link to="/find" className="cb-link navbar__action--link">Find Recipes</Link>
                     <Link to="/community" className="cb-link navbar__action--link">Community</Link>
+                    <Link to="/fridge" className="cb-link navbar__action--link">My Fridge</Link>
                 </>
             }
 

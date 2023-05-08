@@ -1,7 +1,7 @@
 import React from "react";
 
 // CONSTANTS
-const BASE_URL = 'localhost:3000';
+const BASE_URL = 'https://subdued-pie-production.up.railway.app';
 
 export const AuthContext = React.createContext(null);
 

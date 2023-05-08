@@ -1,0 +1,88 @@
+.fridge-page {
+    margin: 0 10%;
+}
+
+.fridge-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+
+.fridge-left {
+    flex-grow: 1;
+    padding: 0 1rem;
+
+
+    max-width: 400px;
+    width: 100%;
+
+    text-align: center;
+}
+
+.fridge-right {
+    flex-grow: 1;
+    margin-left: 1rem;
+
+
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.fridge-search-buttons > *+* {
+    margin-left: 0.5rem
+}
+
+.fridge-search-buttons > button > svg {
+    padding: 0;
+    margin: 0;
+}
+
+.fridge-cost-box {
+    position: relative;
+}
+
+.fridge-dropdown {
+    position: relative;
+}
+
+.fridge-dropdown-inner {
+    position: absolute;
+
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 3px 8px;
+}
+
+
+
+.fridge-expired {
+    color: black;
+    background-color: #e78880;
+    padding: 0.75rem 0;
+
+    border-radius: 30px;
+    border: 5px solid #9b413a;
+}
+
+.fridge-good {
+    color: black;
+    background-color: #92c372;
+    padding: 0.75rem 0;
+
+    border-radius: 30px;
+    border: 5px solid #4f8b29;
+}
+
+
+.fridge-items {
+    border: 5px solid black;
+    border-radius: 30px;
+    min-height: 300px;
+    max-height: 600px;
+    overflow-y: auto;
+
+    padding: 1.5rem 0.7rem;
+}
